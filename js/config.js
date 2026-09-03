@@ -1,5 +1,5 @@
 window.APP_CONFIG={
-  schemaVersion:1,
+  schemaVersion:2,
   storageKey:'oboeterun-v01',
   subjects:['国語','数学','英語','理科','社会','音楽','美術','保健体育','技術・家庭'],
   categories:{
@@ -8,5 +8,11 @@ window.APP_CONFIG={
     '音楽':['用語','フリー'],'美術':['用語','フリー'],'保健体育':['用語','フリー'],'技術・家庭':['用語','フリー']
   },
   examTags:['1学期中間','1学期期末','2学期中間','2学期期末','学年末','実力テスト','模試','受験','フリー'],
+  directions:{front:{label:'表 → 裏',hint:'問題から答える'},reverse:{label:'裏 → 表',hint:'答えから問題を思い出す'},both:{label:'両方',hint:'どちら向きも出題'}},
+  milestones:{
+    cards:[1,10,25,50,100],
+    reviews:[10,20,50,100],
+    streaks:[3,7,14,30]
+  },
   ratings:{perfect:{label:'カンペキ！',days:14},good:{label:'まぁまぁ',days:7},unsure:{label:'怪しい',days:3},zero:{label:'記憶ゼロ',days:1}}
 };

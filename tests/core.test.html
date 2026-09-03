@@ -3,7 +3,9 @@ const out=document.querySelector('#out');let ok=0,ng=0;function test(name,fn){tr
 test('ローカル日付の加算',()=>eq(Store.addDays('2026-09-02',1),'2026-09-03'));
 test('月末の日付加算',()=>eq(Store.addDays('2026-09-30',1),'2026-10-01'));
 test('日数差',()=>eq(Store.dayDiff('2026-09-02','2026-09-20'),18));
-test('初期データ構造',()=>{const d=Store.fresh();eq(d.schemaVersion,1);eq(d.cards.length,0)});
+test('初期データ構造',()=>{const d=Store.fresh();eq(d.schemaVersion,2);eq(d.cards.length,0);eq(d.activity.reviewCount,0)});
+test('v0.1カードを互換移行',()=>{const d=Store.normalize({schemaVersion:1,user:{},cards:[{id:'1',question:'Q',answer:'A'}],exams:[],learningDays:[],stories:{unlocked:[],read:[]}});eq(d.cards[0].direction,'front');eq(d.schemaVersion,2)});
+test('既存データを保持',()=>{const d=Store.normalize({schemaVersion:1,user:{memo:'keep'},cards:[{id:'1',ratings:[{rating:'zero'}]}],exams:[{id:'e'}],learningDays:['2026-09-02'],stories:{unlocked:['MAIN-001'],read:[]}});eq(d.user.memo,'keep');eq(d.cards[0].ratings.length,1);eq(d.exams.length,1);eq(d.stories.unlocked[0],'MAIN-001')});
 test('正しいバックアップ',()=>eq(Store.validImport(Store.fresh()),true));
 test('不正バックアップ拒否',()=>eq(Boolean(Store.validImport({cards:[]})),false));
 test('MAIN 180話',()=>eq(STORY_EPISODES.filter(e=>e.type==='MAIN').length,180));
